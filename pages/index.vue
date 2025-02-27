@@ -51,7 +51,7 @@
       </SectionLayout>
   
       <!-- Performance Section -->
-      <SectionLayout id="performance" bgColor="bg-accent">
+      <SectionLayout id="performance" bgColor="bg-dark">
         <SectionTitle title="Performance" />
         <div class="section-intro">
           <p>
