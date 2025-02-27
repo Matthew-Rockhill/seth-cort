@@ -27,7 +27,7 @@
           <template #right>
             <div>
               <p>
-                Rooted in the rich heritage of folk music and shaped by modern indie influences, my sound weaves together the emotional authenticity of The Lumineers, the narrative depth of Noah Kahan, and the innovative spirit of Mumford & Sons. By incorporating Jeremy Loops' rhythmic energy and Sam Fender's storytelling prowess, I craft songs that bridge the gap between traditional folk and contemporary expression, creating music that speaks to both heart and mind.
+                Rooted in the rich heritage of folk music and shaped by modern indie influences, my sound weaves together the emotional authenticity of The Lumineers, the narrative depth of Noah Kahan, and the innovative spirit of Mumford & Sons. By incorporating Jeremy Loops' rhythmic energy and James Bay's storytelling prowess, I craft songs that bridge the gap between traditional folk and contemporary expression, creating music that speaks to both heart and mind.
               </p>
             </div>
           </template>
@@ -44,7 +44,7 @@
         <SectionTitle title="Discovery" />
         <div class="section-intro">
           <p>
-            Trace his path from breakthrough debut to latest releases - a collection that chronicles both musical growth and personal evolution. Each single marks a milestone, from early collaborations with rock veteran Mark Haze to recent works crafted with emerging producer Janco Mouton.
+            Trace his path from breakthrough debut to latest releases - a collection that chronicles both musical growth and personal evolution. Each single marks a milestone, from early collaborations with rock veteran Mark Haze to recent works crafted with emerging producers in the industry.
           </p>
         </div>
         <SinglesShowcase :singles="singlesCollection" />
@@ -55,7 +55,7 @@
         <SectionTitle title="Performance" />
         <div class="section-intro">
           <p>
-            Seth's live performances showcase his versatility as an artist, adapting seamlessly between intimate solo acoustic sets, dynamic duo performances, and full band experiences with his 3-piece ensemble. His ability to connect with audiences through heartfelt performances has led to notable appearances, including opening at the Simondium Music Festival and collaborating with established artists like Gavin Edwards.
+            Seth's live performances showcase his versatility as an artist, adapting seamlessly between intimate solo acoustic sets, dynamic duo performances, and full band experiences. His ability to connect with audiences through heartfelt performances has led to notable appearances, including opening at the Simondium Music Festival and collaborating with established artists like Gavin Edwards.
           </p>
         </div>
         <div class="video-grid">
