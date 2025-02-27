@@ -1,0 +1,339 @@
+/* assets/css/main.css */
+
+/* Import fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+/* Browser Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Base background and typography */
+  background-color: #121212;
+  font-family: 'DM Sans', sans-serif; /* Changed to DM Sans */
+  color: #fff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Define theme colors as CSS variables */
+:root {
+  --color-bg: #121212;
+  --color-bg-dark: #0a0a0a;
+  /* For text we're using white at different opacities for contrast */
+  --color-text-50: rgba(255, 255, 255, 0.5);
+  --color-text-30: rgba(255, 255, 255, 0.3);
+  --color-text-20: rgba(255, 255, 255, 0.2);
+  --color-text-10: rgba(255, 255, 255, 0.1);
+  --accent-color: #BC9C76;
+  --accent-color-light: #d6b08a;
+  
+  /* Spacing variables */
+  --section-padding-desktop: 96px;
+  --section-padding-mobile: 48px;
+  --content-max-width: 1280px;
+  
+  /* Header height variable for consistent spacing */
+  --header-height: 100px;
+}
+
+/* Typography scale */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  line-height: 1.2;
+  font-family: 'Big Shoulders Display', sans-serif; /* Explicit declaration for headings */
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin: 0 0 2rem 0;
+  font-family: 'DM Sans', sans-serif; /* Explicit declaration for paragraphs */
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 4.5rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  h3 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Links */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-color-light);
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container - use this sparingly, prefer SectionLayout component */
+.container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.accent-text {
+  color: var(--accent-color);
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--accent-color);
+  color: #121212;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: var(--accent-color-light);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--accent-color);
+  color: #121212;
+}
+
+/* Common spacing classes */
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
+
+/* Font family declarations */
+.logo-text,
+.hero-title,
+.section-title .title {
+  font-family: 'Big Shoulders Display', sans-serif;
+}
+
+/* Scroll indicator animation */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-10px);}
+  60% {transform: translateY(-5px);}
+}
+
+.scroll-indicator {
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-text {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+}
+
+/* Add this to your main.css or in the <style> section of your Contact component */
+
+.contact-text {
+  margin-bottom: 2rem;
+  color: var(--color-text-50, rgba(255, 255, 255, 0.5));
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.contact-details {
+  list-style: none;
+  margin-bottom: 2.5rem;
+}
+
+.contact-details li {
+  margin-bottom: 1rem;
+  color: var(--color-text-50, rgba(255, 255, 255, 0.5));
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-details i {
+  color: var(--accent-color, #BC9C76);
+  font-size: 1.2rem;
+}
+
+.contact-details a, 
+.contact-details span {
+  color: var(--accent-color, #BC9C76);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-details a:hover {
+  color: #d6b08a;
+  text-decoration: underline;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-link i {
+  font-size: 1.2rem;
+}
+
+.social-link:hover {
+  background-color: var(--accent-color, #BC9C76);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(188, 156, 118, 0.3);
+}
+
+/* Icons using Font Awesome or similar icon library */
+.icon-instagram:before {
+  content: "\f16d"; /* Font Awesome Instagram icon code */
+}
+
+.icon-x:before {
+  content: "\f099"; /* Font Awesome Twitter/X icon code */
+}
+
+.icon-youtube:before {
+  content: "\f167"; /* Font Awesome YouTube icon code */
+}
+
+.icon-location:before {
+  content: "\f3c5"; /* Font Awesome map-marker-alt icon code */
+}
+
+.icon-email:before {
+  content: "\f0e0"; /* Font Awesome envelope icon code */
+}
