@@ -272,9 +272,11 @@ img {
   gap: 0.5rem;
 }
 
-.contact-details i {
+.contact-icon {
+  width: 20px;
+  height: 20px;
   color: var(--accent-color, #BC9C76);
-  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .contact-details a, 
@@ -307,33 +309,13 @@ img {
   transition: all 0.3s ease;
 }
 
-.social-link i {
-  font-size: 1.2rem;
+.social-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .social-link:hover {
   background-color: var(--accent-color, #BC9C76);
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(188, 156, 118, 0.3);
-}
-
-/* Icons using Font Awesome or similar icon library */
-.icon-instagram:before {
-  content: "\f16d"; /* Font Awesome Instagram icon code */
-}
-
-.icon-x:before {
-  content: "\f099"; /* Font Awesome Twitter/X icon code */
-}
-
-.icon-youtube:before {
-  content: "\f167"; /* Font Awesome YouTube icon code */
-}
-
-.icon-location:before {
-  content: "\f3c5"; /* Font Awesome map-marker-alt icon code */
-}
-
-.icon-email:before {
-  content: "\f0e0"; /* Font Awesome envelope icon code */
 }
