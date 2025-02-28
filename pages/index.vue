@@ -55,7 +55,7 @@
         <SectionTitle title="Performance" />
         <div class="section-intro">
           <p>
-            Seth's live performances showcase his versatility as an artist, adapting seamlessly between intimate solo acoustic sets, dynamic duo performances, and full band experiences. His ability to connect with audiences through heartfelt performances has led to notable appearances, including opening at the Simondium Music Festival and collaborating with established artists like Gavin Edwards.
+            Seth's live performances showcase his versatility as an artist, adapting seamlessly between intimate solo acoustic sets, dynamic duo performances, and full band experiences. His ability to connect with audiences through heartfelt performances has led to notable appearances, including opening at the Simondium Music Festival, performing live on Expresso and Cape Town TV's Home Grown, and collaborating with established artists like Gavin Edwards.
           </p>
         </div>
         <div class="video-grid">
