@@ -15,7 +15,7 @@
       <!-- Group 2: Star and Description -->
       <div class="hero-details-group">
         <div v-if="showStar" class="star-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40" style="display: block;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" style="display: block;">
             <path d="M 50 10 C 60 30, 70 40, 90 50 C 70 60, 60 70, 50 90 C 40 70, 30 60, 10 50 C 30 40, 40 30, 50 10 Z" 
                   fill="#BC9C76" />
           </svg>
@@ -62,7 +62,7 @@ const props = defineProps({
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: var(--header-height, 100px); /* Use variable with fallback */
+  margin-top: var(--header-height, 100px);
   padding: 48px 0;
 }
 
@@ -99,7 +99,7 @@ const props = defineProps({
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%; 
+  width: 100%;
   z-index: 1;
 }
 
@@ -117,7 +117,7 @@ const props = defineProps({
 }
 
 .first-name {
-  font-size: 22rem;
+  font-size: 12rem; /* Increased from 8rem to 12rem */
   font-weight: 900;
   color: #fff;
   z-index: 0;
@@ -127,7 +127,7 @@ const props = defineProps({
 }
 
 .last-name {
-  font-size: 22rem;
+  font-size: 14rem; /* Increased from 10rem to 14rem */
   font-weight: 900;
   color: var(--accent-color, #BC9C76);
   z-index: 2;
@@ -183,47 +183,66 @@ const props = defineProps({
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .first-name {
-    font-size: 6rem;
-  }
-  
-  .last-name {
-    font-size: 8rem;
-  }
-}
+/* Media Queries - Mobile First Approach */
+/* Default is now mobile, and we scale UP to desktop */
 
-@media (max-width: 768px) {
+/* Tablet */
+@media (min-width: 768px) {
   .first-name {
-    font-size: 4rem;
+    font-size: 16rem; /* Adjusted for smoother progression */
   }
   
   .last-name {
-    font-size: 6rem;
+    font-size: 18rem; /* Adjusted for smoother progression */
   }
   
   .portrait-overlay {
-    width: 70%;
+    width: 90%;
   }
   
-  .hero-description {
-    font-size: 1rem;
-    padding: 0 1rem;
+  .star-icon svg {
+    width: 35px;
+    height: 35px;
   }
 }
 
+/* Desktop */
+@media (min-width: 1024px) {
+  .first-name {
+    font-size: 22rem;
+  }
+  
+  .last-name {
+    font-size: 22rem;
+  }
+  
+  .portrait-overlay {
+    width: 80%;
+  }
+  
+  .star-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Small mobile adjustments */
 @media (max-width: 480px) {
   .first-name {
-    font-size: 3rem;
+    font-size: 10rem; /* Increased from 6rem to 10rem */
   }
   
   .last-name {
-    font-size: 4.5rem;
+    font-size: 12rem; /* Increased from 8rem to 12rem */
   }
   
+  .hero-wrapper {
+    min-height: 80vh;
+  }
+  
+  /* Adjust portrait overlay to be slightly smaller to accommodate larger text */
   .portrait-overlay {
-    width: 60%;
+    width: 95%;
   }
 }
 </style>
