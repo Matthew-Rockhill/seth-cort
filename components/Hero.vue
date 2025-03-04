@@ -15,8 +15,9 @@
       <!-- Group 2: Star and Description -->
       <div class="hero-details-group">
         <div v-if="showStar" class="star-icon">
-          <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
-            <path d="M12,0 L15.09,7.26 L23,8.27 L17.5,13.88 L18.92,21.99 L12,18.27 L5.08,21.99 L6.5,13.88 L1,8.27 L8.91,7.26 L12,0 Z" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40" style="display: block;">
+            <path d="M 50 10 C 60 30, 70 40, 90 50 C 70 60, 60 70, 50 90 C 40 70, 30 60, 10 50 C 30 40, 40 30, 50 10 Z" 
+                  fill="#BC9C76" />
           </svg>
         </div>
         

@@ -301,8 +301,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
+  width: 64px;
+  height: 64px;
   background-color: rgba(255, 255, 255, 0.08);
   color: white;
   border-radius: 50%;
@@ -310,8 +310,8 @@ img {
 }
 
 .social-icon {
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
 }
 
 .social-link:hover {
