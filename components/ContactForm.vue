@@ -96,8 +96,7 @@ const submitForm = async () => {
   formStatus.message = '';
   
   try {
-    // This would connect to your Vercel serverless function
-    // Example of how you would send this to a Vercel API endpoint:
+    // Send the form data to the Vercel API route
     const response = await fetch('/api/contact', {
       method: 'POST',
       headers: {
@@ -106,11 +105,11 @@ const submitForm = async () => {
       body: JSON.stringify(formData),
     });
     
-    if (!response.ok) {
-      throw new Error('Failed to send message');
-    }
-    
     const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to send message');
+    }
     
     // Success message
     formStatus.type = 'success';
@@ -125,7 +124,7 @@ const submitForm = async () => {
   } catch (error) {
     // Error message
     formStatus.type = 'error';
-    formStatus.message = 'There was an error sending your message. Please try again.';
+    formStatus.message = error.message || 'There was an error sending your message. Please try again.';
     console.error('Form submission error:', error);
   } finally {
     isSubmitting.value = false;

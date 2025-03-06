@@ -1,0 +1,55 @@
+// api/submit-form.js
+
+// First, install these packages:
+// npm install @sendgrid/mail
+
+import sgMail from '@sendgrid/mail';
+
+export default async function handler(req, res) {
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  
+  try {
+    // Get form data from request body
+    const { name, email, message, subject } = req.body;
+    
+    // Simple validation
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
+    // Ensure environment variables are defined
+    const apiKey = process.env.SENDGRID_API_KEY;
+    const verifiedSenderEmail = process.env.VERIFIED_SENDER_EMAIL;
+    
+    if (!apiKey || !verifiedSenderEmail) {
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+
+    // Set SendGrid API key
+    sgMail.setApiKey(apiKey);
+    
+    // Set up email data
+    const msg = {
+      to: 'Seth.cort.bookings@gmail.com',
+      from: verifiedSenderEmail, // Must be verified in SendGrid
+      subject: subject || `New form submission from ${name}`,
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Message: ${message}
+      `,
+    };
+
+    // Send email
+    await sgMail.send(msg);
+    
+    // Respond with success
+    res.status(200).json({ message: 'Email sent successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
