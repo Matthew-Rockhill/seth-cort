@@ -57,17 +57,16 @@
     socialLinks: {
       type: Array,
       default: () => [
-        { platform: 'Instagram', url: 'https://instagram.com/sethcort' },
+        { platform: 'Instagram', url: 'https://instagram.com/seth.cort' },
         { platform: 'Twitter', url: 'https://twitter.com/sethcort' },
-        { platform: 'YouTube', url: 'https://youtube.com/sethcort' },
+        { platform: 'YouTube', url: 'https://www.youtube.com/@seth.cort.' },
         { platform: 'Spotify', url: 'https://open.spotify.com/artist/sethcort' },
       ]
     },
     legalLinks: {
       type: Array,
       default: () => [
-        { url: '/privacy', text: 'Privacy Policy' },
-        { url: '/terms', text: 'Terms of Use' }
+        // { url: '/privacy', text: 'Privacy Policy' },
       ]
     }
   });
