@@ -101,6 +101,7 @@ const props = defineProps({
   transform: translate(-50%, -50%);
   width: 100%;
   z-index: 1;
+  transition: transform 0.3s ease, width 0.3s ease;
 }
 
 .portrait-overlay img {
@@ -229,20 +230,22 @@ const props = defineProps({
 /* Small mobile adjustments */
 @media (max-width: 480px) {
   .first-name {
-    font-size: 10rem; /* Increased from 6rem to 10rem */
+    font-size: 10rem; /* Already increased from 6rem to 10rem */
   }
   
   .last-name {
-    font-size: 12rem; /* Increased from 8rem to 12rem */
+    font-size: 12rem; /* Already increased from 8rem to 12rem */
   }
   
   .hero-wrapper {
     min-height: 80vh;
   }
   
-  /* Adjust portrait overlay to be slightly smaller to accommodate larger text */
+  /* Increase the portrait overlay size for mobile */
   .portrait-overlay {
-    width: 95%;
+    width: 120%; /* Increase from 95% to 110% to make it larger on mobile */
+    max-width: none; /* Remove any max-width constraints */
+    transform: translate(-50%, -50%) scale(1.15); /* Scale up the image */
   }
 }
 </style>
