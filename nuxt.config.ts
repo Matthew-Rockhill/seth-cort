@@ -61,6 +61,19 @@ export default defineNuxtConfig({
             "genre": ["Folk", "Singer-Songwriter"],
             "description": "Folk singer-songwriter from Cape Town, South Africa, weaving folk traditions with modern storytelling."
           })
+        },
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-1S5DX076W1',
+          async: true
+        },
+        {
+          innerHTML: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-1S5DX076W1');
+          `,
+          type: 'text/javascript'
         }
       ]
     }

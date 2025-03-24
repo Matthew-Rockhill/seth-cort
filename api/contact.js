@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     
     // Set up email data
     const msg = {
-      to: ['Seth.cort.bookings@gmail.com', 'mrockhill@gmail.com'],
+      to: ['bookings@sethcort.com', 'mrockhill@gmail.com'],
       from: process.env.VERIFIED_SENDER_EMAIL, // Must be verified in SendGrid
       subject: subject ? `${subject} - Contact Form Submission` : `New message from ${name} - Contact Form`,
       text: `
