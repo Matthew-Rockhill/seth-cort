@@ -39,12 +39,11 @@ const props = defineProps({
 const images = [
   { src: '/images/Seth_Cort_PR_(3).JPG', alt: '' },
   { src: '/images/Seth_Cort_PR_(10).jpg', alt: '' },
-  { src: '/images/Seth_Cort_PR_(5).jpg', alt: '' },
-  { src: '/images/Seth_Cort_PR_(6).JPG', alt: '' },
   { src: '/images/Seth_Cort_PR_(9).jpg', alt: '' },
-  { src: '/images/Seth_Cort_PR_(14).jpg', alt: '' },
-  { src: '/images/Seth_Cort_PR_(15).jpg', alt: '' },
-  { src: '/images/Seth_Cort_PR_(7).jpg', alt: '' }
+  { src: '/images/kvdm-22.jpg', alt: '' },
+  { src: '/images/kvdm-28.jpg', alt: '' },
+  { src: '/images/kvdm-40.jpg', alt: '' },
+  { src: '/images/kvdm-52.jpg', alt: '' },
 ];
 
 // Duplicate images to create infinite scroll effect

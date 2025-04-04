@@ -219,8 +219,8 @@ const singlesCollection = ref([
   {
     videoId: '877ZD_qPxlU',
     platform: 'youtube',
-    title: 'Seth Cort - Wait Too Long (Live Acoustic Version)',
-    description: 'An intimate acoustic performance of "Wait Too Long" featuring raw vocals and stripped-back instrumentation. This live version brings out the emotional depth and authenticity that defines Seth\'s musical approach.',
+    title: 'Seth Cort - Left to Burn (Live Acoustic Version)',
+    description: 'An intimate acoustic performance of "Left to Burn" featuring raw vocals and stripped-back instrumentation. This live version brings out the emotional depth and authenticity that defines Seth\'s musical approach.',
     // Using the most reliable thumbnail format for this specific video
     thumbnail: 'https://img.youtube.com/vi/877ZD_qPxlU/hqdefault.jpg',
     duration: '4:22'

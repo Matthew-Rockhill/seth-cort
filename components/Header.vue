@@ -73,7 +73,7 @@ const props = defineProps({
     default: () => [
       { text: 'About', url: '#about' },
       { text: 'Releases', url: '#discovery' },
-      { text: 'Performance', url: '#performance' },
+      { text: 'Performances', url: '#performance' },
       { text: 'Contact', url: '#contact' }
     ]
   }
