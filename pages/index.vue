@@ -143,6 +143,18 @@
 // Singles collection data
 const singlesCollection = ref([
   {
+    title: "Chance To Grow",
+    releaseYear: "2025",
+    coverArt: "/images/chance_to_grow_cover_art.png",
+    description: "A gentle but powerful reminder that the most meaningful connections often need time, patience, and space to truly flourish. The song explores the delicate balance between vulnerability and love, conveying a heartfelt plea for patience, understanding, and emotional space within a developing relationship to avoid unintentional emotional harm.",
+    previewUrl: "/audio/chance-to-grow-preview.mp3",
+    streamingLinks: [
+      { platform: 'Spotify', url: 'https://open.spotify.com/track/1fbgS4G5skBihaUmPlVgDB?si=43bfa5698cae419c' },
+      { platform: 'Apple Music', url: 'https://music.apple.com/us/album/chance-to-grow-single/1802951709' },
+      { platform: 'YouTube', url: 'https://youtu.be/35PcJQGRe2Q?si=thr7LxSZOU2RabM3' }
+    ]
+  },
+  {
     title: "Heart's Repair",
     releaseYear: "2024",
     coverArt: "/images/hearts_repair_cover_art.png", // Use the anatomical heart image
