@@ -124,6 +124,7 @@
   
       <!-- Footer -->
       <Footer />
+      <SpeedInsights />
     </div>
   </template>
   
@@ -139,6 +140,7 @@
   import Hero from '~/components/Hero.vue'
   import Footer from '~/components/Footer.vue'
   import { ref } from 'vue'
+  import { SpeedInsights } from '@vercel/speed-insights/vue'
   
 // Singles collection data
 const singlesCollection = ref([
