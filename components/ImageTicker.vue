@@ -1,150 +1,157 @@
 <template>
-  <div class="ticker-wrapper">
-    <div class="image-ticker-container">
-      <!-- Left fade gradient -->
-      <div class="fade-overlay fade-left"></div>
-      
-      <!-- Ticker content -->
-      <div 
-        class="image-ticker"
-        :style="{ transform: `translateX(-${tickerPosition}px)` }"
-        ref="tickerRef"
-      >
-        <div v-for="(image, index) in duplicatedImages" :key="`image-${index}`" class="ticker-item">
-          <img :src="image.src" :alt="image.alt" />
+  <div class="image-ticker-container">
+    <div class="image-ticker" :style="{ '--speed': speed + 's' }">
+      <div class="image-track">
+        <div 
+          v-for="(image, index) in duplicatedImages" 
+          :key="`${image.src}-${index}`"
+          class="image-item"
+        >
+          <img
+            :src="image.src"
+            :alt="image.alt"
+            loading="lazy"
+            class="ticker-image"
+            @load="handleImageLoad"
+            @error="handleImageError"
+            decoding="async"
+          />
         </div>
       </div>
-      
-      <!-- Right fade gradient -->
-      <div class="fade-overlay fade-right"></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted } from 'vue'
 
 const props = defineProps({
+  images: {
+    type: Array,
+    required: true
+  },
   speed: {
     type: Number,
-    default: 1 // Pixels per frame
-  },
-  autoplay: {
-    type: Boolean,
-    default: true
+    default: 1.5
   }
-});
+})
 
-// Images with correct filenames
-const images = [
-  { src: '/images/Seth_Cort_PR_(3).JPG', alt: '' },
-  { src: '/images/Seth_Cort_PR_(10).jpg', alt: '' },
-  { src: '/images/Seth_Cort_PR_(9).jpg', alt: '' },
-  { src: '/images/kvdm-22.jpg', alt: '' },
-  { src: '/images/kvdm-28.jpg', alt: '' },
-  { src: '/images/kvdm-40.jpg', alt: '' },
-  { src: '/images/kvdm-52.jpg', alt: '' },
-];
+const loadedImages = ref(0)
+const totalImages = computed(() => props.images.length)
 
-// Duplicate images to create infinite scroll effect
-const duplicatedImages = computed(() => [...images, ...images]);
-
-const tickerPosition = ref(0);
-const tickerRef = ref(null);
-const tickerWidth = ref(0);
-const singleSetWidth = ref(0);
-let animationFrameId = null;
-
-// Animation function
-const animate = () => {
-  if (!props.autoplay) return;
+// Duplicate images for seamless scrolling
+const duplicatedImages = computed(() => {
+  const duplicateCount = Math.ceil(window?.innerWidth / 200) || 10
+  const duplicated = []
   
-  tickerPosition.value += props.speed;
-  
-  // Reset position when first set of images is completely scrolled
-  if (tickerPosition.value >= singleSetWidth.value) {
-    tickerPosition.value = 0;
+  for (let i = 0; i < duplicateCount; i++) {
+    duplicated.push(...props.images)
   }
   
-  animationFrameId = requestAnimationFrame(animate);
-};
+  return duplicated
+})
 
-// Initialize sizes and start animation
+const handleImageLoad = () => {
+  loadedImages.value++
+}
+
+const handleImageError = (event) => {
+  console.warn('Failed to load image:', event.target.src)
+}
+
 onMounted(() => {
-  // Calculate sizes
-  if (tickerRef.value) {
-    tickerWidth.value = tickerRef.value.scrollWidth;
-    singleSetWidth.value = tickerWidth.value / 2; // Half because we duplicated the images
-  }
-  
-  // Start animation
-  animationFrameId = requestAnimationFrame(animate);
-});
-
-// Clean up
-onUnmounted(() => {
-  if (animationFrameId) {
-    cancelAnimationFrame(animationFrameId);
-  }
-});
+  // Preload the first few images for better perceived performance
+  const imagesToPreload = props.images.slice(0, 3)
+  imagesToPreload.forEach(image => {
+    const img = new Image()
+    img.src = image.src
+  })
+})
 </script>
 
 <style scoped>
-/* Wrapper for full-width effect */
-.ticker-wrapper {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background-color: #121212;
-}
-
 .image-ticker-container {
   position: relative;
   overflow: hidden;
-  /* Using transparent background to avoid color matching issues */
-  background-color: transparent;
-  padding: 2rem 0;
-  max-width: 100%;
+  width: 100%;
+  height: 200px;
+  /* Optimize for better performance */
+  contain: layout style;
+  will-change: transform;
 }
 
-/* Ticker styling */
 .image-ticker {
-  display: flex;
-  transition: transform 0.1s linear;
-  white-space: nowrap;
-}
-
-.ticker-item {
-  flex-shrink: 0;
-  padding: 0 1rem;
-}
-
-.ticker-item img {
-  height: 500px;
-  width: auto;
-  object-fit: cover;
-}
-
-/* Fade overlay elements */
-.fade-overlay {
-  position: absolute;
-  top: 0;
+  position: relative;
   height: 100%;
-  width: 25%; /* Wider fade effect */
-  z-index: 10;
-  pointer-events: none; /* Allow clicks to pass through */
+  overflow: hidden;
 }
 
-.fade-left {
-  left: 0;
-  background: linear-gradient(to right, #121212 0%, rgba(18, 18, 18, 0) 100%);
+.image-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  animation: scroll var(--speed) linear infinite;
+  /* Optimize for better performance */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-.fade-right {
-  right: 0;
-  background: linear-gradient(to left, #121212 0%, rgba(18, 18, 18, 0) 100%);
+.image-item {
+  flex-shrink: 0;
+  width: 200px;
+  height: 100%;
+  margin-right: 1rem;
+  /* Optimize for better performance */
+  contain: layout style;
+}
+
+.ticker-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  /* Optimize image rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transition: opacity 0.3s ease;
+  decoding: async;
+}
+
+.ticker-image:hover {
+  opacity: 0.8;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause animation on hover for better UX */
+.image-ticker-container:hover .image-track {
+  animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .image-ticker-container {
+    height: 150px;
+  }
+  
+  .image-item {
+    width: 150px;
+    margin-right: 0.5rem;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .image-track {
+    animation: none !important;
+  }
 }
 </style>

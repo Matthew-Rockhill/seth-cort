@@ -4,6 +4,18 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   
+  // Performance optimizations
+  nitro: {
+    compressPublicAssets: true,
+    minify: true,
+    // Enable caching
+    routeRules: {
+      '/': { prerender: true, headers: { 'cache-control': 's-maxage=86400' } },
+      '/images/**': { headers: { 'cache-control': 'max-age=31536000' } },
+      '/audio/**': { headers: { 'cache-control': 'max-age=31536000' } },
+    }
+  },
+
   app: {
     head: {
       charset: 'utf-8',
@@ -42,6 +54,10 @@ export default defineNuxtConfig({
         // Canonical
         { rel: 'canonical', href: 'https://www.sethcort.com' },
         
+        // Preload critical fonts
+        { rel: 'preload', href: 'https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700&display=swap', as: 'style' },
+        { rel: 'preload', href: 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap', as: 'style' },
+        
         // Favicon
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
@@ -62,6 +78,7 @@ export default defineNuxtConfig({
             "description": "Folk singer-songwriter from Cape Town, South Africa, weaving folk traditions with modern storytelling."
           })
         },
+        // Optimized Google Analytics
         {
           src: 'https://www.googletagmanager.com/gtag/js?id=G-1S5DX076W1',
           async: true
@@ -71,7 +88,10 @@ export default defineNuxtConfig({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-1S5DX076W1');
+            gtag('config', 'G-1S5DX076W1', {
+              page_title: document.title,
+              page_location: window.location.href
+            });
           `,
           type: 'text/javascript'
         }

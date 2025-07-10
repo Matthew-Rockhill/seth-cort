@@ -36,7 +36,7 @@
   
       <!-- Image Ticker - Use bgColor="bg-dark" for contrast -->
       <SectionLayout bgColor="bg-dark" noPadding>
-        <ImageTicker :images="tourImages" :speed="1.5" />
+        <LazyImageTicker :images="tourImages" :speed="1.5" />
       </SectionLayout>
   
       <!-- Discovery Section -->
@@ -47,7 +47,7 @@
             Trace his path from breakthrough debut to latest releases - a collection that chronicles both musical growth and personal evolution. Each single marks a milestone, from early collaborations with rock veteran Mark Haze to recent works crafted with emerging producers in the industry.
           </p>
         </div>
-        <SinglesShowcase :singles="singlesCollection" />
+        <LazySinglesShowcase :singles="singlesCollection" />
       </SectionLayout>
   
       <!-- Performance Section -->
@@ -59,7 +59,7 @@
           </p>
         </div>
         <div class="video-grid">
-          <VideoPlayer 
+          <LazyVideoPlayer 
             v-for="video in performanceVideos" 
             :key="video.videoId"
             :video-id="video.videoId"
@@ -117,7 +117,7 @@
             </div>
           </template>
           <template #right>
-            <ContactForm />
+            <LazyContactForm />
           </template>
         </TwoColumnLayout>
       </SectionLayout>
@@ -132,15 +132,46 @@
   import Header from '~/components/Header.vue'
   import SectionTitle from '~/components/SectionTitle.vue'
   import TwoColumnLayout from '~/components/TwoColumnLayout.vue'
-  import ImageTicker from '~/components/ImageTicker.vue'
-  import SinglesShowcase from '~/components/SinglesShowcase.vue'
-  import VideoPlayer from '~/components/VideoPlayer.vue'
-  import ContactForm from '~/components/ContactForm.vue'
   import SectionLayout from '~/components/SectionLayout.vue'
   import Hero from '~/components/Hero.vue'
   import Footer from '~/components/Footer.vue'
   import { ref } from 'vue'
   import { SpeedInsights } from '@vercel/speed-insights/vue'
+  
+  // Lazy load components that are below the fold
+  const LazyImageTicker = defineAsyncComponent(() => import('~/components/ImageTicker.vue'))
+  const LazySinglesShowcase = defineAsyncComponent(() => import('~/components/SinglesShowcase.vue'))
+  const LazyVideoPlayer = defineAsyncComponent(() => import('~/components/VideoPlayer.vue'))
+  const LazyContactForm = defineAsyncComponent(() => import('~/components/ContactForm.vue'))
+  
+  // Define loading component for better UX
+  const LoadingComponent = {
+    template: `<div class="lazy-loading" style="height: 200px; border-radius: 8px;"></div>`
+  }
+  
+  // Apply loading component to lazy components
+  LazyImageTicker.loading = LoadingComponent
+  LazySinglesShowcase.loading = LoadingComponent
+  LazyVideoPlayer.loading = LoadingComponent
+  LazyContactForm.loading = LoadingComponent
+  
+  // Optimize images for tour gallery
+  const tourImages = ref([
+    { src: '/images/kvdm-40.jpg', alt: 'Seth Cort Performance 1' },
+    { src: '/images/kvdm-52.jpg', alt: 'Seth Cort Performance 2' },
+    { src: '/images/kvdm-22.jpg', alt: 'Seth Cort Performance 3' },
+    { src: '/images/kvdm-28.jpg', alt: 'Seth Cort Performance 4' },
+    { src: '/images/Seth_Cort_PR_(9).jpg', alt: 'Seth Cort Portrait 1' },
+    { src: '/images/Seth_Cort_PR_(6).JPG', alt: 'Seth Cort Portrait 2' },
+    { src: '/images/Seth_Cort_PR_(5).jpg', alt: 'Seth Cort Portrait 3' },
+    { src: '/images/Seth_Cort_PR_(4).jpeg', alt: 'Seth Cort Portrait 4' },
+    { src: '/images/Seth_Cort_PR_(3).JPG', alt: 'Seth Cort Portrait 5' },
+    { src: '/images/Seth_Cort_PR_(2).jpg', alt: 'Seth Cort Portrait 6' },
+    { src: '/images/Seth_Cort_PR_(15).jpg', alt: 'Seth Cort Portrait 7' },
+    { src: '/images/Seth_Cort_PR_(10).jpg', alt: 'Seth Cort Portrait 8' },
+    { src: '/images/Seth_Cort_PR_(14).jpg', alt: 'Seth Cort Portrait 9' },
+    { src: '/images/Seth_Cort_PR _(7).jpg', alt: 'Seth Cort Portrait 10' }
+  ])
   
 // Singles collection data
 const singlesCollection = ref([

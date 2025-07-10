@@ -6,7 +6,12 @@
         <div class="title-container">
           <h1 class="hero-title first-name">{{ firstName }}</h1>
           <div class="portrait-overlay">
-            <img src="/images/SETH_CORT_CutOut.svg" alt="Seth Cort Cutout" />
+            <img 
+              src="/images/SETH_CORT_CutOut.svg" 
+              alt="Seth Cort Cutout" 
+              loading="eager"
+              class="portrait-image"
+            />
           </div>
           <h1 class="hero-title last-name">{{ lastName }}</h1>
         </div>
@@ -22,6 +27,14 @@
         </div>
         
         <div v-if="description" class="hero-description">{{ description }}</div>
+        
+        <!-- Scroll indicator for better UX -->
+        <div v-if="showScrollIndicator" class="scroll-indicator" @click="scrollToNext">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="scroll-arrow">
+            <polyline points="6,9 12,15 18,9"></polyline>
+          </svg>
+          <span class="scroll-text">Scroll</span>
+        </div>
       </div>
     </div>
   </section>
@@ -50,8 +63,20 @@ const props = defineProps({
   showStar: {
     type: Boolean,
     default: true
+  },
+  showScrollIndicator: {
+    type: Boolean,
+    default: true
   }
 });
+
+// Smooth scroll to next section
+const scrollToNext = () => {
+  const nextSection = document.querySelector('#about');
+  if (nextSection) {
+    nextSection.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 </script>
 
 <style scoped>
@@ -64,6 +89,9 @@ const props = defineProps({
   justify-content: center;
   margin-top: var(--header-height, 100px);
   padding: 48px 0;
+  /* Optimize for better performance */
+  contain: layout style;
+  will-change: transform;
 }
 
 .hero-content {
@@ -92,6 +120,8 @@ const props = defineProps({
   position: relative;
   width: 100%;
   text-align: center;
+  /* Optimize for better performance */
+  contain: layout style;
 }
 
 .portrait-overlay {
@@ -104,10 +134,14 @@ const props = defineProps({
   transition: transform 0.3s ease, width 0.3s ease;
 }
 
-.portrait-overlay img {
+.portrait-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  /* Optimize image loading */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  decoding: async;
 }
 
 .hero-title {
@@ -115,10 +149,13 @@ const props = defineProps({
   line-height: 1;
   margin: 0;
   text-transform: uppercase;
+  /* Optimize for better performance */
+  contain: layout style;
+  will-change: opacity, transform;
 }
 
 .first-name {
-  font-size: 12rem; /* Increased from 8rem to 12rem */
+  font-size: 12rem;
   font-weight: 900;
   color: #fff;
   z-index: 0;
@@ -128,7 +165,7 @@ const props = defineProps({
 }
 
 .last-name {
-  font-size: 14rem; /* Increased from 10rem to 14rem */
+  font-size: 14rem;
   font-weight: 900;
   color: var(--accent-color, #BC9C76);
   z-index: 2;
@@ -153,6 +190,8 @@ const props = defineProps({
   opacity: 0;
   animation-delay: 1.3s;
   animation-fill-mode: forwards;
+  /* Optimize for better performance */
+  will-change: transform, opacity;
 }
 
 .hero-description {
@@ -165,6 +204,42 @@ const props = defineProps({
   animation: fadeIn 1s ease forwards;
   animation-delay: 1.5s;
   opacity: 0;
+  /* Optimize for better performance */
+  will-change: opacity, transform;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  opacity: 0;
+  animation: fadeInBounce 1s ease forwards;
+  animation-delay: 2s;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  /* Optimize for better performance */
+  will-change: transform, opacity;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-arrow {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-color, #BC9C76);
+  animation: bounce 2s infinite;
+}
+
+.scroll-text {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+  color: var(--accent-color, #BC9C76);
 }
 
 /* Animations */
@@ -178,10 +253,21 @@ const props = defineProps({
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeInBounce {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 0.8; transform: translateY(0); }
+}
+
 @keyframes pulse {
   0% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.1); opacity: 1; }
   100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-10px);}
+  60% {transform: translateY(-5px);}
 }
 
 /* Media Queries - Mobile First Approach */
@@ -190,11 +276,11 @@ const props = defineProps({
 /* Tablet */
 @media (min-width: 768px) {
   .first-name {
-    font-size: 16rem; /* Adjusted for smoother progression */
+    font-size: 16rem;
   }
   
   .last-name {
-    font-size: 18rem; /* Adjusted for smoother progression */
+    font-size: 18rem;
   }
   
   .portrait-overlay {
@@ -230,11 +316,11 @@ const props = defineProps({
 /* Small mobile adjustments */
 @media (max-width: 480px) {
   .first-name {
-    font-size: 10rem; /* Already increased from 6rem to 10rem */
+    font-size: 10rem;
   }
   
   .last-name {
-    font-size: 12rem; /* Already increased from 8rem to 12rem */
+    font-size: 12rem;
   }
   
   .hero-wrapper {
@@ -243,9 +329,24 @@ const props = defineProps({
   
   /* Increase the portrait overlay size for mobile */
   .portrait-overlay {
-    width: 120%; /* Increase from 95% to 110% to make it larger on mobile */
-    max-width: none; /* Remove any max-width constraints */
-    transform: translate(-50%, -50%) scale(1.15); /* Scale up the image */
+    width: 120%;
+    max-width: none;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .hero-title,
+  .star-icon,
+  .hero-description,
+  .scroll-indicator {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  
+  .scroll-arrow {
+    animation: none !important;
   }
 }
 </style>

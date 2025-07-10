@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "analyze": "nuxt analyze",
+    "bundle-analysis": "node scripts/analyze-bundle.cjs"
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.1",
@@ -17,5 +19,8 @@
     "nuxt": "^3.15.4",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest"
   }
 }

@@ -1,6 +1,6 @@
 /* assets/css/main.css */
 
-/* Import fonts from Google Fonts */
+/* Import fonts from Google Fonts with font-display: swap for better performance */
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
@@ -22,11 +22,15 @@ body {
 body {
   /* Base background and typography */
   background-color: #121212;
-  font-family: 'DM Sans', sans-serif; /* Changed to DM Sans */
+  font-family: 'DM Sans', sans-serif;
   color: #fff;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Improve text rendering performance */
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+  font-kerning: normal;
 }
 
 /* Define theme colors as CSS variables */
@@ -50,20 +54,25 @@ body {
   --header-height: 100px;
 }
 
-/* Typography scale */
+/* Typography scale with performance optimizations */
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
   font-weight: 700;
   line-height: 1.2;
-  font-family: 'Big Shoulders Display', sans-serif; /* Explicit declaration for headings */
+  font-family: 'Big Shoulders Display', sans-serif;
+  /* Optimize font loading */
+  font-display: swap;
 }
 
 h1 {
   font-size: 3.5rem;
+  /* Use contain for better performance on large text */
+  contain: layout style;
 }
 
 h2 {
   font-size: 2.5rem;
+  contain: layout style;
 }
 
 h3 {
@@ -84,7 +93,8 @@ h6 {
 
 p {
   margin: 0 0 2rem 0;
-  font-family: 'DM Sans', sans-serif; /* Explicit declaration for paragraphs */
+  font-family: 'DM Sans', sans-serif;
+  font-display: swap;
 }
 
 @media (min-width: 768px) {
@@ -101,22 +111,34 @@ p {
   }
 }
 
-/* Links */
+/* Links with better performance */
 a {
   color: var(--accent-color);
   text-decoration: none;
   transition: color 0.2s ease;
+  /* Optimize for better performance */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 a:hover {
   color: var(--accent-color-light);
 }
 
-/* Images */
+/* Images with performance optimizations */
 img {
   max-width: 100%;
   height: auto;
   display: block;
+  /* Improve image loading performance */
+  loading: lazy;
+  decoding: async;
+}
+
+/* Critical images (above fold) should not be lazy loaded */
+.hero img,
+.logo img {
+  loading: eager;
 }
 
 /* Container - use this sparingly, prefer SectionLayout component */
@@ -148,9 +170,10 @@ img {
   color: var(--accent-color);
 }
 
-/* Animation utilities */
+/* Performance-optimized animations */
 .fade-in {
   animation: fadeIn 1s ease forwards;
+  will-change: opacity;
 }
 
 @keyframes fadeIn {
@@ -160,6 +183,7 @@ img {
 
 .slide-up {
   animation: slideUp 0.8s ease forwards;
+  will-change: opacity, transform;
 }
 
 @keyframes slideUp {
@@ -167,7 +191,7 @@ img {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Button styles */
+/* Button styles with performance optimizations */
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -179,6 +203,10 @@ img {
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
+  /* Optimize for better performance */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, background-color;
 }
 
 .btn:hover {
@@ -221,7 +249,7 @@ img {
   font-family: 'Big Shoulders Display', sans-serif;
 }
 
-/* Scroll indicator animation */
+/* Scroll indicator animation with performance optimization */
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
   40% {transform: translateY(-10px);}
@@ -237,6 +265,9 @@ img {
   margin-top: 2rem;
   opacity: 0.8;
   transition: opacity 0.3s ease;
+  /* Optimize animations */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .scroll-indicator:hover {
@@ -250,8 +281,7 @@ img {
   margin-top: 0.5rem;
 }
 
-/* Add this to your main.css or in the <style> section of your Contact component */
-
+/* Performance optimizations for contact section */
 .contact-text {
   margin-bottom: 2rem;
   color: var(--color-text-50, rgba(255, 255, 255, 0.5));
@@ -307,6 +337,10 @@ img {
   color: white;
   border-radius: 50%;
   transition: all 0.3s ease;
+  /* Optimize for better performance */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, background-color;
 }
 
 .social-icon {
@@ -318,4 +352,32 @@ img {
   background-color: var(--accent-color, #BC9C76);
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(188, 156, 118, 0.3);
+}
+
+/* Lazy loading placeholder styles */
+.lazy-loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .scroll-indicator {
+    animation: none;
+  }
 }
